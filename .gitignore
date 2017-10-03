@@ -286,3 +286,6 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/src/bc.multiverse.app/wwwroot/css/site.min.css
+/src/bc.multiverse.app/wwwroot/js/site.min.js
+/src/bc.multiverse.app/wwwroot/lib
