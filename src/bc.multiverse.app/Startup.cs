@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using bc.cores.modulars;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -52,10 +53,15 @@ namespace bc.multiverse.app
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient(p => services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory,
+            IServiceProvider serviceProvider,
+            IServiceCollection services)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -83,6 +89,24 @@ namespace bc.multiverse.app
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var allModules = Directory.GetFiles(assemblyPath, "bc.modules.*.dll")
+                .Select(f => Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(f))))
+                .SelectMany(a => a.DefinedTypes)
+                .Where(t => typeof(IModule).GetTypeInfo().IsAssignableFrom(t.AsType())
+                    && !t.IsAbstract
+                    && !t.IsInterface)
+                .Select(t => (IModule)Activator.CreateInstance(t.AsType()));
+            
+            foreach (var m in allModules)
+            {
+                m
+                    .SetServiceConllection(services)
+                    .SetServiceProvider(serviceProvider)
+                    .SetApplication(app)
+                    .Load();
+            }
         }
     }
 }
