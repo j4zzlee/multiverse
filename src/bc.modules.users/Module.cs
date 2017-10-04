@@ -7,7 +7,8 @@ namespace bc.modules.users
     {
         public override IModule Load()
         {
-            throw new NotImplementedException();
+
+            return this;
         }
     }
 }

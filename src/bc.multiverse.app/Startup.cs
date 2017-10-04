@@ -3,6 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using bc.cores.modulars;
+using bc.modules.account.Models;
+using bc.modules.account.Services;
+using bc.multiverse.app.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -10,9 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using bc.multiverse.app.Data;
-using bc.multiverse.app.Models;
-using bc.multiverse.app.Services;
 
 namespace bc.multiverse.app
 {

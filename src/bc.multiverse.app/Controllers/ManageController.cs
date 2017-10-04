@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using bc.modules.account.Models;
+using bc.modules.account.Models.ManageViewModels;
+using bc.modules.account.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using bc.multiverse.app.Models;
-using bc.multiverse.app.Models.ManageViewModels;
-using bc.multiverse.app.Services;
 
 namespace bc.multiverse.app.Controllers
 {

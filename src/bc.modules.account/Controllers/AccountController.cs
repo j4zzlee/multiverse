@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using bc.modules.account.Models;
+using bc.modules.account.Models.AccountViewModels;
+using bc.modules.account.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using bc.multiverse.app.Models;
-using bc.multiverse.app.Models.AccountViewModels;
-using bc.multiverse.app.Services;
 
-namespace bc.multiverse.app.Controllers
+namespace bc.modules.account.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -141,7 +139,7 @@ namespace bc.multiverse.app.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -469,7 +467,7 @@ namespace bc.multiverse.app.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction("Index", "Home");
             }
         }
 

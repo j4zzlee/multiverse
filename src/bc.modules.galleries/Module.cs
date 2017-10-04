@@ -7,7 +7,8 @@ namespace bc.modules.galleries
     {
         public override IModule Load()
         {
-            throw new NotImplementedException();
+
+            return this;
         }
     }
 }
