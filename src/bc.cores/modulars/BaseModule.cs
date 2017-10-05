@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -43,6 +45,19 @@ namespace bc.cores.modulars
             return this;
         }
 
-        public abstract IModule Load();
+        public virtual IModule Load()
+        {
+            UseMvc();
+            return this;
+        }
+
+        protected virtual IModule UseMvc()
+        {
+            var assemblyPath = new Uri(GetType().GetTypeInfo().Assembly.CodeBase).LocalPath;
+            Services
+                .AddMvc()
+                .AddApplicationPart(Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(assemblyPath))));
+            return this;
+        }
     }
 }
