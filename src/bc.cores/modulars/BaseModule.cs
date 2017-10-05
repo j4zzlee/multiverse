@@ -2,7 +2,9 @@
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace bc.cores.modulars
 {
@@ -11,6 +13,7 @@ namespace bc.cores.modulars
         protected IServiceCollection Services;
         protected IServiceProvider ServiceProvider;
         protected IApplicationBuilder ApplicationBuilder;
+        protected IMvcBuilder MvcBuilder;
 
         /// <summary>
         /// Sets the service conllection.
@@ -45,6 +48,12 @@ namespace bc.cores.modulars
             return this;
         }
 
+        public IModule AddMvc(IMvcBuilder mvcBuilder)
+        {
+            MvcBuilder = mvcBuilder;
+            return this;
+        }
+
         public virtual IModule Load()
         {
             UseMvc();
@@ -53,10 +62,19 @@ namespace bc.cores.modulars
 
         protected virtual IModule UseMvc()
         {
-            var assemblyPath = new Uri(GetType().GetTypeInfo().Assembly.CodeBase).LocalPath;
-            Services
-                .AddMvc()
-                .AddApplicationPart(Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(assemblyPath))));
+            var assembly = GetType().GetTypeInfo().Assembly;
+            var assemblyPath = new Uri(assembly.CodeBase).LocalPath;
+            MvcBuilder.AddApplicationPart(Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(assemblyPath))));
+
+            var fileProvider = new CompositeFileProvider(new EmbeddedFileProvider(assembly));
+            Services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.FileProviders.Add(fileProvider);
+            });
+//            ApplicationBuilder.UseStaticFiles(new StaticFileOptions
+//            {
+//                FileProvider = fileProvider,
+//            });
             return this;
         }
     }

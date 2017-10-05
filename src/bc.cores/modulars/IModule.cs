@@ -9,6 +9,7 @@ namespace bc.cores.modulars
         IModule SetServiceConllection(IServiceCollection services);
         IModule SetServiceProvider(IServiceProvider serviceProvider);
         IModule SetApplication(IApplicationBuilder app);
+        IModule AddMvc(IMvcBuilder mvcBuilder);
         IModule Load();
     }
 }
