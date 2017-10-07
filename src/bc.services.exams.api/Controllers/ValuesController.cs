@@ -23,6 +23,7 @@ namespace bc.services.exams.api.Controllers
         [HttpGet]
         public IEnumerable<Exam> Get()
         {
+            _logger.LogInformation("This is a Get() function");
             return _examRepository.All();
         }
 
