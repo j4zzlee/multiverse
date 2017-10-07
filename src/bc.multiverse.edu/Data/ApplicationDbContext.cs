@@ -1,4 +1,5 @@
 ﻿using System;
+using bc.cores.repositories.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using bc.multiverse.edu.Models;
