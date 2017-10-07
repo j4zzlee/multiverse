@@ -27,6 +27,10 @@ namespace bc.cores.repositories.Models.Exams
         public int DisplayType { get; set; }
 
         [NotMapped]
-        public AnswerDisplayType DisplayTypeEnum => (AnswerDisplayType) DisplayType;
+        public AnswerDisplayType DisplayTypeEnum
+        {
+            get => (AnswerDisplayType)DisplayType;
+            set => DisplayType = (int) value;
+        }
     }
 }

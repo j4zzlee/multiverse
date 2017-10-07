@@ -30,16 +30,28 @@ namespace bc.cores.repositories.Models.Exams
         public int DisplayType { get; set; }
 
         [NotMapped]
-        public QuestionDisplayType DisplayTypeEnum => (QuestionDisplayType)DisplayType;
+        public QuestionDisplayType DisplayTypeEnum
+        {
+            get => (QuestionDisplayType)DisplayType;
+            set => DisplayType = (int)value;
+        }
 
         public int QuestionType { get; set; }
 
         [NotMapped]
-        public QuestionType QuestionTypeEnum => (QuestionType)DisplayType;
+        public QuestionType QuestionTypeEnum
+        {
+            get => (QuestionType)QuestionType;
+            set => QuestionType = (int)value;
+        }
 
         public int Visibility { get; set; }
 
         [NotMapped]
-        public Visibility VisibilityEnum => (Visibility)Visibility;
+        public Visibility VisibilityEnum
+        {
+            get => (Visibility)Visibility;
+            set => Visibility = (int)value;
+        }
     }
 }

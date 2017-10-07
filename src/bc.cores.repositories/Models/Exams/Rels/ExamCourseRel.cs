@@ -6,12 +6,12 @@ namespace bc.cores.repositories.Models.Exams.Rels
 {
     public class ExamCourseRel
     {
-        [Key]
         [ForeignKey(nameof(Exam))]
+        [Required]
         public Guid ExamId { get; set; }
-
-        [Key]
+        
         [ForeignKey(nameof(Course))]
+        [Required]
         public Guid CourseId { get; set; }
     }
 }

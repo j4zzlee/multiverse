@@ -22,6 +22,16 @@ namespace bc.cores.repositories.Models.Exams
         public int? MaxQuestionsToPlay { get; set; }
 
         [NotMapped]
-        public Visibility VisibilityEnum => (Visibility)Visibility;
+        public Visibility VisibilityEnum
+        {
+            get => (Visibility)Visibility;
+            set => Visibility = (int)value;
+        }
+
+        [ForeignKey("AspNetUsers")]
+        public Guid CreatedById { get; set; }
+
+        [Required]
+        public long CreatedAt { get; set; }
     }
 }
