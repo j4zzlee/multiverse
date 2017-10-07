@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace bc.multiverse.edu
+namespace bc.services.exams.api
 {
     public class Program
     {

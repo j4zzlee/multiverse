@@ -20,12 +20,14 @@ namespace bc.multiverse.edu.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             builder.Entity<ApplicationUser>(b =>
             {
-                b.Property(u => u.Id).HasDefaultValueSql("newsequentialid()");
+                b.Property(u => u.Id)
+                    .HasDefaultValueSql("newsequentialid()");
             });
 
             builder.Entity<ApplicationRole>(b =>
             {
-                b.Property(u => u.Id).HasDefaultValueSql("newsequentialid()");
+                b.Property(u => u.Id)
+                    .HasDefaultValueSql("newsequentialid()");
             });
         }
     }
