@@ -20,6 +20,7 @@ namespace bc.cores.repositories
         {
             ConnectionString = conf.GetConnectionString("DefaultConnection");
             Connection = new SqlConnection(ConnectionString);
+            Connection.Open();
             Transaction = Connection.BeginTransaction();
         }
 
@@ -49,7 +50,7 @@ namespace bc.cores.repositories
                     transaction: Transaction);
         }
 
-        public IEnumerable<T> All(int? limit, int? offset)
+        public IEnumerable<T> All(int? limit = null, int? offset = null)
         {
             var tableName = typeof(T).Name;
             limit = limit ?? 100;
@@ -137,6 +138,7 @@ FETCH NEXT {limit} ROWS ONLY;",
 
         public void Dispose()
         {
+            Connection?.Close();
             Transaction?.Dispose();
             Connection?.Dispose();
         }

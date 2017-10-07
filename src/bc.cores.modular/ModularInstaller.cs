@@ -12,11 +12,14 @@ namespace bc.cores.modular
         /// <summary>
         /// Uses the modulars.
         /// </summary>
-        /// <param name="app">The application.</param>
-        public static void UseModulars(this IApplicationBuilder app)
+        /// <param name="services">The services.</param>
+        /// <param name="builder">The builder.</param>
+        public static void UseModulars(this IServiceCollection services, IMvcBuilder builder)
         {
+            var mvcBuilder = services.AddMvc();
+            services.AddSingleton(o => mvcBuilder);
             var assemblyPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            var allModules = Directory.GetFiles(assemblyPath, "bc.modules.*.dll")
+            var allModules = Directory.GetFiles(assemblyPath, "bc.modulars.*.dll")
                 .Select(f => Assembly.Load(new AssemblyName(Path.GetFileNameWithoutExtension(f))))
                 .SelectMany(a => a.DefinedTypes)
                 .Where(t => typeof(IModule).GetTypeInfo().IsAssignableFrom(t.AsType())
@@ -27,20 +30,20 @@ namespace bc.cores.modular
             foreach (var m in allModules)
             {
                 m
-                    .SetApplication(app)
+                    .SetServiceCollection(services)
+                    .SetMvcBuilder(builder)
                     .Load();
+                services.AddSingleton(p => m);
             }
         }
 
-        /// <summary>
-        /// Uses the modulars.
-        /// </summary>
-        /// <param name="services">The services.</param>
-        public static void UseModulars(this IServiceCollection services)
+        public static void UseModulars(this IApplicationBuilder app, IServiceProvider provider)
         {
-            var mvcBuilder = services.AddMvc();
-            services.AddSingleton(o => mvcBuilder);
-            services.AddSingleton(o => services);
+            var allModules = provider.GetServices<IModule>();
+            foreach (var module in allModules)
+            {
+                module.SetServiceProvider(provider);
+            }
         }
     }
 }

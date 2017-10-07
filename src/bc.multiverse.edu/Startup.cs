@@ -56,12 +56,12 @@ namespace bc.multiverse.edu
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddSingleton(Configuration);
 
-            services.AddMvc();
-            services.UseModulars();
+            var mvcBuilder = services.AddMvc();
+            services.UseModulars(mvcBuilder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -85,7 +85,7 @@ namespace bc.multiverse.edu
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseModulars();
+            app.UseModulars(serviceProvider);
         }
     }
 }

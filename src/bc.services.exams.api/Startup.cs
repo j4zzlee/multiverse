@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using bc.cores.modular;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace bc.services.exams.api
 {
@@ -31,28 +27,27 @@ namespace bc.services.exams.api
 
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddSingleton(provider =>
+            services.AddSingleton(p =>
             {
-                var loggerFactory = provider.GetService<ILoggerFactory>();
+                var loggerFactory = p.GetService<ILoggerFactory>();
                 return loggerFactory.CreateLogger("bc.services.exams.api");
             });
 
             services.AddSingleton(Configuration);
-
-            services.AddMvc();
-            services.UseModulars();
+            var mvcBuilder = services.AddMvc();
+            services.UseModulars(mvcBuilder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider provider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseMvc();
-            app.UseModulars();
+            app.UseModulars(provider);
         }
     }
 }

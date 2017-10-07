@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using bc.cores.repositories.Models.Exams;
+using bc.cores.repositories.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -10,17 +12,18 @@ namespace bc.services.exams.api.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private ILogger _logger;
-        public ValuesController(ILogger logger)
+        private readonly ILogger _logger;
+        private readonly ExamRepository _examRepository;
+        public ValuesController(ILogger logger, ExamRepository examRepository)
         {
             _logger = logger;
+            _examRepository = examRepository;
         }
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Exam> Get()
         {
-            _logger?.LogDebug("Hello");
-            return new string[] { "value1", "value2" };
+            return _examRepository.All();
         }
 
         // GET api/values/5
