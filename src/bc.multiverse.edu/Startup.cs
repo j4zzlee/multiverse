@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using bc.multiverse.edu.Data;
 using bc.multiverse.edu.Models;
 using bc.multiverse.edu.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace bc.multiverse.edu
 {
@@ -30,10 +31,12 @@ namespace bc.multiverse.edu
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+                .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>()
                 .AddDefaultTokenProviders();
-
+            
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
