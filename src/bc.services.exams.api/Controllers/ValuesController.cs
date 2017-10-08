@@ -12,9 +12,9 @@ namespace bc.services.exams.api.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<ValuesController> _logger;
         private readonly ExamRepository _examRepository;
-        public ValuesController(ILogger logger, ExamRepository examRepository)
+        public ValuesController(ILogger<ValuesController> logger, ExamRepository examRepository)
         {
             _logger = logger;
             _examRepository = examRepository;

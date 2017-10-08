@@ -1,5 +1,6 @@
 ﻿using System;
 using bc.cores.modular;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,18 +25,23 @@ namespace bc.services.exams.api
                 .AddConsole()
                 .AddDebug()
                 .AddConfiguration(Configuration.GetSection("Logging")));
-
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
-            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddSingleton(p =>
-            {
-                var loggerFactory = p.GetService<ILoggerFactory>();
-                return loggerFactory.CreateLogger("bc.services.exams.api");
-            });
-
+            
             services.AddSingleton(Configuration);
             var mvcBuilder = services.AddMvc();
             services.UseModulars(mvcBuilder);
+
+            var audience = Configuration.GetSection("JwtAuthentication:Audience").Value;
+            var authority = Configuration.GetSection("JwtAuthentication:Authority").Value;
+            // jwt forward to main service bc.multiverse.edu
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(o =>
+                {
+                    o.Audience = audience;
+                    o.Authority = authority;
+                    o.SaveToken = true;
+                    o.RequireHttpsMetadata = false;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

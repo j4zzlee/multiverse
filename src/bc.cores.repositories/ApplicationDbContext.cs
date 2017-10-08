@@ -6,7 +6,7 @@ using bc.cores.repositories.Models.Exams.Scores;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace bc.multiverse.edu.Data
+namespace bc.cores.repositories
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {

@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using bc.cores.jwt;
 using bc.cores.modular;
-using bc.cores.repositories.Models;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using bc.multiverse.edu.Data;
-using bc.multiverse.edu.Models;
 using bc.multiverse.edu.Services;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace bc.multiverse.edu
@@ -35,27 +27,11 @@ namespace bc.multiverse.edu
                 .AddDebug()
                 .AddConfiguration(Configuration.GetSection("Logging")));
 
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
-            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddSingleton(provider =>
-            {
-                var loggerFactory = provider.GetService<ILoggerFactory>();
-                return loggerFactory.CreateLogger("bc.multiverse.edu");
-            });
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
-                .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>()
-                .AddDefaultTokenProviders();
-            
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddSingleton(Configuration);
 
+            services.UseDefaultIdentity(Configuration);
             var mvcBuilder = services.AddMvc();
             services.UseModulars(mvcBuilder);
         }
@@ -86,6 +62,7 @@ namespace bc.multiverse.edu
             });
 
             app.UseModulars(serviceProvider);
+            
         }
     }
 }

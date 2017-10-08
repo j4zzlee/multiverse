@@ -1,14 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using bc.cores.jwt;
 using bc.cores.modular;
+using bc.cores.repositories;
+using bc.cores.repositories.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace bc.services.accounts.api
 {
@@ -28,30 +32,35 @@ namespace bc.services.accounts.api
                 .AddConsole()
                 .AddDebug()
                 .AddConfiguration(Configuration.GetSection("Logging")));
-
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
-            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddSingleton(provider =>
-            {
-                var loggerFactory = provider.GetService<ILoggerFactory>();
-                return loggerFactory.CreateLogger("bc.services.accounts.api");
-            });
-
+            
             services.AddSingleton(Configuration);
+            
+            // Identity
+            services.UseDefaultIdentity(Configuration);
+            
+            // Jwt
+            services.UseJwtTokenProviderMiddleware(Configuration);
 
             var mvcBuilder = services.AddMvc();
             services.UseModulars(mvcBuilder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            // Authentication
+            app.UseAuthentication();
+            
+            // JWT
+            app.UseJwtTokenProviderMiddleware(configuration);
+
             app.UseMvc();
+
             app.UseModulars(serviceProvider);
         }
     }
