@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <Header :title="msg"></Header>
+    <HomeHeader :title="msg"></HomeHeader>
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Header from '@/partials/Home/Header'
+import HomeHeader from '@/partials/Home/HomeHeader'
 export default {
   name: 'Home',
   data () {
@@ -29,7 +29,7 @@ export default {
       msg: 'Welcome to Your Vue.js App'
     }
   },
-  components: { Header: Header }
+  components: { HomeHeader: HomeHeader }
 }
 </script>
 

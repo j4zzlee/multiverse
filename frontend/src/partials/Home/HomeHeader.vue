@@ -5,6 +5,6 @@
 <script>
 export default {
   props: ['title'],
-  name: 'Header'
+  name: 'HomeHeader'
 }
 </script>
