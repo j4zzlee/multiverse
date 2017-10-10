@@ -19,7 +19,7 @@ namespace bc.cores.jwt
         public static void UseDefaultIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("bc.multiverse.edu")));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(o =>
                 {
