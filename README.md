@@ -3,6 +3,8 @@
 ## Pre-requisite: 
 * nodejs  
   * bower  
+  * vue-cli  
+  * webpack
 * dotnet core 2.0
 * SQL Server 2016 Express
 
@@ -22,5 +24,6 @@
 > cd src/bc.services.\<api service\>; dotnet restore; dotnet watch run  
 > cd src/bc.multiverse.edu; dotnet restore; bower install; dotnet watch run  
 
-* Frontend:
+* Frontend:  
+  * Install vue-cli to enable hot-reload
 > cd frontend; npm install; npm run dev

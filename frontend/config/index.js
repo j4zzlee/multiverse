@@ -26,11 +26,11 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report,
     proxyTable: {
       '/api/accounts': {
-        target: 'http://localhost:62924',
+        target: 'http://exams.multiverse.edu:62924',
         changeOrigin: true
       },
       '/api/exams': {
-        target: 'http://localhost:63011',
+        target: 'http://exams.multiverse.edu:63011',
         changeOrigin: true
       }
     }

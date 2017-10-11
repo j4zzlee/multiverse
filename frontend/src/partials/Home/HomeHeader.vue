@@ -1,5 +1,7 @@
 <template>
-  <h1>{{title}}</h1>
+  <div class="home-header">
+    <h1>{{title}}</h1>
+  </div>
 </template>
 
 <script>
