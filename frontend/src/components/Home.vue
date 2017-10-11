@@ -21,6 +21,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Super Exams'
+      // profile: this.$store.state.profile
     }
   },
   components: { HomeHeader: HomeHeader }
