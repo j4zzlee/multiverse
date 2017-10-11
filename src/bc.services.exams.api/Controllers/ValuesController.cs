@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using bc.cores.repositories.Models.Exams;
 using bc.cores.repositories.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +22,7 @@ namespace bc.services.exams.api.Controllers
         }
         // GET api/values
         [HttpGet]
+        [Authorize]
         public IEnumerable<Exam> Get()
         {
             _logger.LogInformation("This is a Get() function");

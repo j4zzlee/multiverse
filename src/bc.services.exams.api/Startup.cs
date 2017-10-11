@@ -1,4 +1,5 @@
 ﻿using System;
+using bc.cores.jwt;
 using bc.cores.modular;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -27,31 +28,31 @@ namespace bc.services.exams.api
                 .AddConfiguration(Configuration.GetSection("Logging")));
             
             services.AddSingleton(Configuration);
+
+            // Identity
+            services.UseDefaultIdentity(Configuration);
+            
+            // Jwt
+            services.UseJwtTokenProviderMiddleware(Configuration);
+
             var mvcBuilder = services.AddMvc();
             services.UseModulars(mvcBuilder);
-
-            var audience = Configuration.GetSection("JwtAuthentication:Audience").Value;
-            var authority = Configuration.GetSection("JwtAuthentication:Authority").Value;
-            // jwt forward to main service bc.multiverse.edu
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(o =>
-                {
-                    o.Audience = audience;
-                    o.Authority = authority;
-                    o.SaveToken = true;
-                    o.RequireHttpsMetadata = false;
-                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider provider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider provider, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
+            // Authentication
+            app.UseAuthentication();
+
+            // JWT
+            app.UseJwtTokenProviderMiddleware(configuration);
+
             app.UseMvc();
             app.UseModulars(provider);
         }

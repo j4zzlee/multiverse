@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\bc.cores.jwt\bc.cores.jwt.csproj" />
     <ProjectReference Include="..\bc.cores.modular\bc.cores.modular.csproj" />
     <ProjectReference Include="..\bc.modulars.repositories\bc.modulars.repositories.csproj" />
   </ItemGroup>
