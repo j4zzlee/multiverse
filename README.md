@@ -17,7 +17,6 @@
 * appSettings.[env].json is missing on all projects, you should configure them by copy appSettings.json to appSettings.[env].json and reconfigure it
 * For "Development" environment, just create appSettings.Development.json
 ![image](https://user-images.githubusercontent.com/7732856/31445627-a0861374-aec8-11e7-8a88-1fc088d29fcc.png)
-* There is bc.multiverse.edu
 
 ## Deployment (Development only)
 * Backend:  
