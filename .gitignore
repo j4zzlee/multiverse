@@ -289,3 +289,4 @@ __pycache__/
 *.min.css
 *.min.js
 *.Development.json
+.vscode/
