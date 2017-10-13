@@ -4,7 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-require('../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss')
+require('../node_modules/jquery/dist/jquery.min.js')
+require('../node_modules/jquery/dist/jquery.slim.min.js')
+require('../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+
+require('./styles/js/site.js')
 require('./styles/_main.scss')
 
 Vue.config.productionTip = false
