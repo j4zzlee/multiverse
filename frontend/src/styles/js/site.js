@@ -766,8 +766,6 @@ if (typeof jQuery === 'undefined') {
   }
 
   PushMenu.prototype.toggle = function () {
-      console.log('wtf');
-      console.log(AppContainerSelector);
     var windowWidth = $(window).width()
     var isOpen      = !$(AppContainerSelector).hasClass(ClassName.collapsed)
 

@@ -101,6 +101,7 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
-    })
+    }),
+    new ExtractTextPlugin('[name].[hash].js')
   ]
 }

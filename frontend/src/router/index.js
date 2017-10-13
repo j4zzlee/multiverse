@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueMeta from 'vue-meta'
-import Home from '@/components/Home'
-import _HomeLayout from '@/layouts/_Home'
-import QuickNote from '@/components/QuickNote'
-import Games from '@/components/Games'
 
 Vue.use(VueMeta)
 Vue.use(Router)
+
+const Home = () => import('@/components/Home')
+const _HomeLayout = () => import('@/layouts/_Home')
+const QuickNote = () => import('@/components/QuickNote')
+const Games = () => import('@/components/Games')
 
 const router = new Router({
   routes: [

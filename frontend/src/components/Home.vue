@@ -1,6 +1,14 @@
 <template>
 <div class="content-wrapper">
-  <section class="content-header">
+  <fab
+    :position="position"
+    :bg-color="bgColor"
+    :actions="fabActions"
+    :icon-size="iconSize"
+    @QuickNote="quickNote"
+    @TakeNote="takeNote"
+  ></fab>
+  <!-- <section class="content-header">
     <h1>
       {{msg}}
       <small>Optional description</small>
@@ -9,19 +17,14 @@
       <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
       <li class="active">Here</li>
     </ol>
-  </section>
+  </section> -->
 
   <!-- Main content -->
   <section class="content container-fluid">
     <div class="home">
       <div class="row">
         <div class="col-md-offset-4 col-md-4">
-          <div class="col-md-6">
-            <router-link :to="{ name: 'Games' /*, params: { userId: 123 }*/}" class="btn btn-lg btn-block btn-primary">Take a game</router-link>
-          </div>
-          <div class="col-md-6">
-            <router-link  :to="{ name: 'QuickNote' /*, params: { userId: 123 }*/}" class="btn btn-lg btn-block btn-warning">Quick note</router-link>
-          </div>
+          <router-link :to="{ name: 'Games' /*, params: { userId: 123 }*/}" class="btn btn-lg btn-block btn-primary">Take a game</router-link>
         </div>
       </div>
     </div>
@@ -30,14 +33,37 @@
 </template>
 
 <script>
+import fab from 'vue-fab'
 export default {
   name: 'Home',
   data () {
     return {
-      msg: 'Welcome to Super Exams'
+      bgColor: '#778899',
+      position: 'bottom-right',
+      iconSize: 'medium',
+      fabActions: [
+        {
+          name: 'QuickNote',
+          icon: 'mode_edit',
+          tooltip: 'Take quick note'
+        },
+        {
+          name: 'TakeNote',
+          icon: 'playlist_add',
+          tooltip: 'Take advanced note'
+        }
+      ]
       // profile: this.$store.state.profile
     }
-  }
-  // components: { HomeHeader: HomeHeader }
+  },
+  methods: {
+    quickNote () {
+      this.$router.push({name: 'QuickNote'})  /* , params: { userId: 123 } */
+    },
+    takeNote () {
+      console.log('take note')
+    }
+  },
+  components: { fab }
 }
 </script>
