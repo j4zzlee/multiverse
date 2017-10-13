@@ -224,25 +224,7 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-        <h1>
-            Page Header
-            <small>Optional description</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-        </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content container-fluid">
-            <router-view></router-view>
-        </section>
-        <!-- /.content -->
-    </div>
+    <router-view></router-view>
     <!-- /.content-wrapper -->
 
     <!-- Main Footer -->
@@ -343,28 +325,18 @@ export default {
       // profile: this.$store.state.profile
     }
   },
-  head: {
-    title: {
-      inner: 'Exams Anywhere!!!'
-    },
-    // Meta tags
-    meta: [
-    //   { name: 'application-name', content: 'Name of my application' },
-    ],
-    // link tags
+  mounted () {
+    $.fn.layout.call($('#app'))
+  },
+  updated () {
+    $.fn.layout.call($('#app'))
+  },
+  metaInfo: {
+    title: 'Exams Anywhere!!!',
     link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic', id: 'google-font' }
+      { rel: 'favicon shortcut icon', href: '/static/logo.png' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic' }
     ]
-    // script: [
-    //   { type: 'text/javascript', src: 'cdn/to/script.js', async: true, body: true}, // Insert in body
-    //   // with shorthand
-    //   { t: 'application/ld+json', i: '{ "@context": "http://schema.org" }' },
-    //   // ...
-    // ],
-    // style: [
-    //   { type: 'text/css', inner: 'body { background-color: #000; color: #fff}', undo: false },
-    //   // ...
-    // ]
   }
 //   components: { HomeHeader: HomeHeader }
 }

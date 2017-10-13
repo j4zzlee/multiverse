@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import VueHead from 'vue-head'
+import VueMeta from 'vue-meta'
 import Home from '@/components/Home'
 import _HomeLayout from '@/layouts/_Home'
 import QuickNote from '@/components/QuickNote'
 import Games from '@/components/Games'
 
-Vue.use(VueHead)
+Vue.use(VueMeta)
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -38,3 +38,9 @@ export default new Router({
     }
   ]
 })
+
+// router.afterEach((to, from, next) => {
+//   $.fn.layout.call($('#app'))
+// })
+
+export default router

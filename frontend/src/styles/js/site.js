@@ -609,7 +609,6 @@ if (typeof jQuery === 'undefined') {
       $(Selector.contentWrapper).css('min-height', windowHeight - footerHeight)
     } else {
       var postSetHeight
-
       if (windowHeight >= sidebarHeight) {
         $(Selector.contentWrapper).css('min-height', windowHeight - neg)
         postSetHeight = windowHeight - neg
@@ -658,10 +657,11 @@ if (typeof jQuery === 'undefined') {
     return this.each(function () {
       var $this = $(this)
       var data  = $this.data(DataKey)
-
       if (!data) {
         var options = $.extend({}, Default, $this.data(), typeof option === 'object' && option)
         $this.data(DataKey, (data = new Layout(options)))
+      } else {
+        data.activate()
       }
 
       if (typeof option === 'string') {
