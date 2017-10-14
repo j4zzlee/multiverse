@@ -22,7 +22,7 @@
               <MenuMessages></MenuMessages>
               <MenuNotifications></MenuNotifications>
               <MenuTasks></MenuTasks>
-              <MenuUserProfile></MenuUserProfile>
+              <MenuUserProfile :profile="profile"></MenuUserProfile>
               <!-- Control Sidebar Toggle Button -->
               <li>
                   <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -72,8 +72,8 @@ export default {
     }
   },
   computed: mapState({
-    profile: state => state.profile,
-    notes: state => state.notes
+    profile: state => state.profile || {},
+    notes: state => state.notes || {}
   }),
   beforeMount () {
     this.$store.dispatch(

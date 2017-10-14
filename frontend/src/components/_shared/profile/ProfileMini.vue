@@ -2,12 +2,13 @@
 <!-- Sidebar user panel (optional) -->
 <div class="user-panel">
     <div class="pull-left image">
-    <img src="/static/user2-160x160.jpg" class="img-circle" alt="User Image">
+    <img :src="photoUri" class="img-circle" alt="User Image" @error="onPhotoError">
     </div>
     <div class="pull-left info">
     <p>{{this.fullName}}</p>
     <!-- Status -->
-    <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
+    <a href="#" v-if="isAnnonymous"><i class="fa fa-circle text-danger"></i> Login</a>
+    <a href="#" v-else><i class="fa fa-circle text-success"></i> Registered</a>
     </div>
 </div>
 </template>
@@ -19,15 +20,26 @@ export default {
   name: 'ProfileMini',
   data () {
     return {
+      photoError: false
+    }
+  },
+  methods: {
+    onPhotoError () {
+      this.photoError = true
     }
   },
   computed: {
-    fullName: () => {
+    fullName () {
       if (this.isAnnonymous || (strUtils.isNullOrWhiteSpace(this.firstName) && strUtils.isNullOrWhiteSpace(this.lastName))) {
         return 'Guest'
       }
       // return `${this.firstName} ${this.lastName}`
       return [this.firstName, this.lastName].filter(w => !strUtils.isNullOrWhiteSpace(w)).join(' ')
+    },
+    photoUri () {
+      if (this.isAnnonymous || this.photoError || strUtils.isNullOrWhiteSpace(this.photo)) {
+        return '/static/user-default.png'
+      }
     }
   }
 }

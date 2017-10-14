@@ -19,7 +19,7 @@ export default {
     * @params: store: {commit, dispatch, state, rootState}
     * @functionParams: {*}
     */
-    init: ({commit, state}, {router, localStorage}) => {
+    init ({commit, state}, {router, localStorage}) {
       var profile = localStorage.get('profile')
       if (!profile) {
         profile = {
