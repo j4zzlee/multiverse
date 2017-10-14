@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using bc.cores.repositories.Models.Exams;
+﻿using System.Collections.Generic;
+using bc.cores.models.Exams;
 using bc.cores.repositories.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

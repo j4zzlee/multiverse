@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using bc.cores.repositories.Models;
+using bc.cores.models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using bc.multiverse.edu.Models;
 using bc.multiverse.edu.Models.AccountViewModels;
 using bc.multiverse.edu.Services;
 

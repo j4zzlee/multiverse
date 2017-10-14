@@ -1,22 +1,22 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using bc.cores.repositories.Enums;
+using bc.cores.models.Enums;
 
-namespace bc.cores.repositories.Models.Exams.Scores
+namespace bc.cores.models.Exams.Scores
 {
-    public class UserCourse
+    public class UserExam
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-
+        
         [ForeignKey("AspNetUsers")]
         [Required]
         public Guid UserId { get; set; }
 
-        [ForeignKey(nameof(Course))]
+        [ForeignKey(nameof(Exam))]
         [Required]
-        public Guid CourseId { get; set; }
+        public Guid ExamId { get; set; }
 
         [Required]
         public long CreatedAt { get; set; }
@@ -28,11 +28,12 @@ namespace bc.cores.repositories.Models.Exams.Scores
         public int TotalAnswers { get; set; }
 
         public int ExamType { get; set; }
+
         [NotMapped]
         public ExamType ExamTypeEnum
         {
-            get => (ExamType)ExamType;
-            set => ExamType = (int)value;
+            get => (ExamType) ExamType;
+            set => ExamType = (int) value;
         }
     }
 }

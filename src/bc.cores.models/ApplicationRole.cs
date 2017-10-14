@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace bc.cores.repositories.Models
+namespace bc.cores.models
 {
     public class ApplicationRole : IdentityRole<Guid>
     {

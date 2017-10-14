@@ -2,17 +2,17 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace bc.cores.repositories.Models.Exams.Scores
+namespace bc.cores.models.Exams.Scores
 {
-    public class UserExamAnswer
+    public class UserCourseAnswer
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-        
-        [ForeignKey(nameof(UserExam))]
+
+        [ForeignKey(nameof(UserCourse))]
         [Required]
-        public Guid UserExamId { get; set; }
-        
+        public Guid UserCourseId { get; set; }
+
         [ForeignKey(nameof(Question))]
         [Required]
         public Guid QuestionId { get; set; }
@@ -20,7 +20,7 @@ namespace bc.cores.repositories.Models.Exams.Scores
         [ForeignKey(nameof(Answer))]
         [Required]
         public Guid AnswerId { get; set; }
-        
+
         public bool IsCorrect { get; set; }
     }
 }

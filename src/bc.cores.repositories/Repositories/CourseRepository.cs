@@ -1,4 +1,4 @@
-﻿using bc.cores.repositories.Models.Exams;
+﻿using bc.cores.models.Exams;
 using Microsoft.Extensions.Configuration;
 
 namespace bc.cores.repositories.Repositories

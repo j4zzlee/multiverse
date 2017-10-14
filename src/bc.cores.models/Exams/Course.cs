@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using bc.cores.repositories.Enums;
+using bc.cores.models.Enums;
 
-namespace bc.cores.repositories.Models.Exams
+namespace bc.cores.models.Exams
 {
-    public class Exam
+    public class Course
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }

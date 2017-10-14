@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\bc.cores.common\bc.cores.common.csproj" />
     <ProjectReference Include="..\bc.cores.repositories\bc.cores.repositories.csproj" />
   </ItemGroup>
 </Project>

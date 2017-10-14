@@ -4,10 +4,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using bc.cores.repositories.Models;
+using bc.cores.common;
+using bc.cores.models;
 using bc.cores.repositories.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyModel.Resolution;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -48,19 +50,45 @@ namespace bc.cores.jwt
         {
             string username = context.Request.Form["username"];
             string password = context.Request.Form["password"];
-//            string clientId = context.Request.Form["client_id"];
-//            string clientSecret = context.Request.Form["client_secret"];
-//            ApplicationUser user = _db..Where(x => x.UserName == username).FirstOrDefault();
+            var rememberMe = context.Request.Form.ContainsKey("remember_me")
+                && string.Equals(
+                    context.Request.Form["remember_me"].ToString().ToLower(),
+                    bool.TrueString.ToLower(), StringComparison.CurrentCultureIgnoreCase);
             var user = _userRepository.GetByEmail(username);
+            if (user == null)
+            {
+                context.Response.StatusCode = 404;
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(
+                    new
+                    {
+                        Message = $@"User ""{username}"" not found",
+                        Code = ApiMessage.UserNotFound.ToString()
+                    },
+                    new JsonSerializerSettings { Formatting = Formatting.Indented }));
+                return;
+            }
+
             var result = _userManager.CheckPasswordAsync(user, password);
             if (result.Result == false)
             {
                 context.Response.StatusCode = 400;
-                await context.Response.WriteAsync("Invalid username or password");
+                await _userManager.AccessFailedAsync(user);
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                    {
+                        Message = $@"Password is not correct",
+                        Code = ApiMessage.PasswordIncorrect.ToString()
+                    },
+                    new JsonSerializerSettings { Formatting = Formatting.Indented }));
                 return;
             }
-            var now = DateTime.UtcNow;
-            
+            var timespan = DateTimeOffset.UtcNow;
+            var now = timespan.Date;
+            var totalExpirationSecond = rememberMe 
+                ? TimeSpan.FromDays(100).TotalSeconds // 3 months is enough
+                : _options.Expiration.TotalSeconds;
+            var expiredAt = timespan.Date.AddSeconds(totalExpirationSecond);
+
+            await _userManager.ResetAccessFailedCountAsync(user);
             var userClaims = await _userManager.GetRolesAsync(user);
             var claims = new List<Claim>
             {
@@ -79,14 +107,28 @@ namespace bc.cores.jwt
                 audience: _options.Audience,
                 claims: claims,
                 notBefore: now,
-                expires: now.Add(_options.Expiration),
+                expires: expiredAt,
                 signingCredentials: _options.SigningCredentials);
 
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var encodedJwt = tokenHandler.WriteToken(jwt);
             var response = new
             {
                 access_token = encodedJwt,
-                expires_in = (int)_options.Expiration.TotalSeconds
+                issued_at = timespan.ToUnixTimeSeconds(),
+                expires_in = totalExpirationSecond,
+                expired_at = timespan.AddSeconds(totalExpirationSecond).ToUnixTimeSeconds(),
+                user_info = new
+                {
+                    user.Id,
+                    user.UserName,
+                    user.FirstName,
+                    user.LastName,
+                    user.Email,
+                    user.EmailConfirmed,
+                    user.PhoneNumber,
+                    user.PhoneNumberConfirmed
+                }
             };
 
             context.Response.ContentType = "application/json";

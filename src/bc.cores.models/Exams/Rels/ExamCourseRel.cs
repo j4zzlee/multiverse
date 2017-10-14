@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace bc.cores.repositories.Models.Exams.Rels
+namespace bc.cores.models.Exams.Rels
 {
     public class ExamCourseRel
     {

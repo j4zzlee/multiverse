@@ -1,4 +1,4 @@
-namespace bc.cores.repositories.Enums
+namespace bc.cores.models.Enums
 {
     public enum QuestionType
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using bc.cores.repositories.Models;
-using bc.cores.repositories.Models.Exams;
-using bc.cores.repositories.Models.Exams.Rels;
-using bc.cores.repositories.Models.Exams.Scores;
+using bc.cores.models;
+using bc.cores.models.Exams;
+using bc.cores.models.Exams.Rels;
+using bc.cores.models.Exams.Scores;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

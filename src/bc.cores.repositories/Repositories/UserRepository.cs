@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using bc.cores.repositories.Models;
+using bc.cores.models;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 

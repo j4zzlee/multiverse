@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
+using bc.cores.models;
 using bc.cores.repositories;
-using bc.cores.repositories.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;

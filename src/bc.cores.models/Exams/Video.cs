@@ -2,13 +2,14 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace bc.cores.repositories.Models.Exams
+namespace bc.cores.models.Exams
 {
-    public class Audio
+    public class Video
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
     }
 }
