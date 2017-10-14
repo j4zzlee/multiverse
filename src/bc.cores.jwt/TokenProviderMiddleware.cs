@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyModel.Resolution;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 
 namespace bc.cores.jwt
@@ -45,7 +46,7 @@ namespace bc.cores.jwt
             context.Response.StatusCode = 400;
             return context.Response.WriteAsync("Bad Request");
         }
-
+        
         private async Task GenerateToken(HttpContext context)
         {
             string username = context.Request.Form["username"];
@@ -130,7 +131,7 @@ namespace bc.cores.jwt
                     user.PhoneNumberConfirmed
                 }
             };
-
+           
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
