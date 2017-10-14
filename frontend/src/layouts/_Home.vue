@@ -37,15 +37,7 @@
     <router-view></router-view>
     <!-- /.content-wrapper -->
 
-    <!-- Main Footer -->
-    <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-        Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
-    </footer>
+    <Footer></Footer>
 
     <ControlSideBar></ControlSideBar>
     <!-- Add the sidebar's background. This div must be placed
@@ -61,10 +53,19 @@ const MenuTasks = () => import('@/layouts/Home/MenuTasks')
 const MenuUserProfile = () => import('@/layouts/Home/MenuUserProfile')
 const ControlSideBar = () => import('@/layouts/Home/ControlSideBar')
 const LeftSideBar = () => import('@/layouts/Home/LeftSideBar')
+const Footer = () => import('@/layouts/Home/Footer')
 
 export default {
   name: 'HomeLayout',
-  components: { MenuMessages, MenuNotifications, MenuTasks, MenuUserProfile, LeftSideBar, ControlSideBar },
+  components: {
+    MenuMessages,
+    MenuNotifications,
+    MenuTasks,
+    MenuUserProfile,
+    LeftSideBar,
+    ControlSideBar,
+    Footer
+  },
   data () {
     return {
     //   msg: 'Welcome to Super Exams'
@@ -72,10 +73,10 @@ export default {
     }
   },
   mounted () {
-    $.fn.layout.call($('#app'))
+    $.fn.layout && $.fn.layout.call($('#app'))
   },
   updated () {
-    $.fn.layout.call($('#app'))
+    $.fn.layout && $.fn.layout.call($('#app'))
   },
   metaInfo: {
     title: 'Exams Anywhere!!!',

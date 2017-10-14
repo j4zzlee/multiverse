@@ -9,7 +9,7 @@
     @TakeNote="takeNote"
   ></fab>
   <!-- Main content -->
-  <section class="content container-fluid">
+  <!-- <section class="content container-fluid">
     <div class="home">
       <div class="row">
         <div class="col-md-offset-4 col-md-4">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 </div>
 </template>
 
