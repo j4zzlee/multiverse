@@ -5,17 +5,8 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel">
-        <div class="pull-left image">
-        <img src="/static/user2-160x160.jpg" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-        <p>Alexander Pierce</p>
-        <!-- Status -->
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-    </div>
+    <ProfileMini :first-name="profile.data.firstName" :last-name="profile.data.lastName"
+        v-bind:is-annonymous="profile.annonymous"></ProfileMini>
 
     <!-- search form (Optional) -->
     <form action="#" method="get" class="sidebar-form">
@@ -55,12 +46,14 @@
 </template>
 
 <script>
+import ProfileMini from '@/components/_shared/profile/ProfileMini'
 export default {
   name: 'LeftSideBar',
+  props: ['profile'],
   data () {
     return {
     }
-  } // ,
-//   components: { HomeHeader: HomeHeader }
+  },
+  components: { ProfileMini }
 }
 </script>

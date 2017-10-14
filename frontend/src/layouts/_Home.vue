@@ -3,36 +3,36 @@
     <!-- Main Header -->
     <header class="main-header">
         <!-- Logo -->
-        <a href="/" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>S</b>E</span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Super</b>Exams</span>
-        </a>
-
+        <router-link :to="{name: 'Home'}" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>S</b>E</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Super</b>Exams</span>
+        </router-link>
+        
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
-            <!-- Sidebar toggle button-->
-            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-            <!-- Navbar Right Menu -->
-            <div class="navbar-custom-menu">
-              <ul class="nav navbar-nav">
-                <MenuMessages></MenuMessages>
-                <MenuNotifications></MenuNotifications>
-                <MenuTasks></MenuTasks>
-                <MenuUserProfile></MenuUserProfile>
-                <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
-              </ul>
-            </div>
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+              <span class="sr-only">Toggle navigation</span>
+          </a>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <MenuMessages></MenuMessages>
+              <MenuNotifications></MenuNotifications>
+              <MenuTasks></MenuTasks>
+              <MenuUserProfile></MenuUserProfile>
+              <!-- Control Sidebar Toggle Button -->
+              <li>
+                  <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              </li>
+            </ul>
+          </div>
         </nav>
     </header>
 
-    <LeftSideBar></LeftSideBar>
+    <LeftSideBar :profile="profile"></LeftSideBar>
     <!-- Content Wrapper. Contains page content -->
     <router-view></router-view>
     <!-- /.content-wrapper -->
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 const MenuMessages = () => import('@/layouts/Home/MenuMessages')
 const MenuNotifications = () => import('@/layouts/Home/MenuNotifications')
 const MenuTasks = () => import('@/layouts/Home/MenuTasks')
@@ -68,9 +69,17 @@ export default {
   },
   data () {
     return {
-    //   msg: 'Welcome to Super Exams'
-      // profile: this.$store.state.profile
     }
+  },
+  computed: mapState({
+    profile: state => state.profile,
+    notes: state => state.notes
+  }),
+  beforeMount () {
+    this.$store.dispatch(
+      'profile/init',
+      {router: this.$router, localStorage: this.$localStorage},
+      {root: true})
   },
   mounted () {
     $.fn.layout && $.fn.layout.call($('#app'))
