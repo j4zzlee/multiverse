@@ -37,7 +37,7 @@
     <router-view></router-view>
     <!-- /.content-wrapper -->
 
-    <Footer></Footer>
+    <Footer_></Footer_>
 
     <ControlSideBar></ControlSideBar>
     <!-- Add the sidebar's background. This div must be placed
@@ -53,7 +53,7 @@ const MenuTasks = () => import('@/layouts/Home/MenuTasks')
 const MenuUserProfile = () => import('@/layouts/Home/MenuUserProfile')
 const ControlSideBar = () => import('@/layouts/Home/ControlSideBar')
 const LeftSideBar = () => import('@/layouts/Home/LeftSideBar')
-const Footer = () => import('@/layouts/Home/Footer')
+const Footer_ = () => import('@/layouts/Home/_Footer')
 
 export default {
   name: 'HomeLayout',
@@ -64,7 +64,7 @@ export default {
     MenuUserProfile,
     LeftSideBar,
     ControlSideBar,
-    Footer
+    Footer_
   },
   data () {
     return {
