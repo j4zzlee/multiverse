@@ -7,7 +7,7 @@
     </div> -->
     <!-- Default to the left -->
     <strong>
-      Copyright &copy; 2016 <router-link :to="{ name: 'Home' /*, params: { userId: 123 }*/}" class="btn btn-link">BCTeam</router-link>.
+      Copyright &copy; 2016 <router-link :to="{ name: 'Home' /*, params: { userId: 123 }*/}">BCTeam</router-link>.
     </strong> All rights reserved.
 </footer>
 </template>
