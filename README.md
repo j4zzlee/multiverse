@@ -17,6 +17,16 @@
 * appSettings.[env].json is missing on all projects, you should configure them by copy appSettings.json to appSettings.[env].json and reconfigure it
 * For "Development" environment, just create appSettings.Development.json
 ![image](https://user-images.githubusercontent.com/7732856/31445627-a0861374-aec8-11e7-8a88-1fc088d29fcc.png)
+* eslint tab-size is 2, for settings on vs code please follow (File => Preferences):  
+```
+{
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\Sysnative\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "git.enableSmartCommit": true,
+    "php.validate.executablePath": "C:\\xampp\\php\\php.exe",
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
+}
+```
 
 ## Deployment (Development only)
 * Backend:  
