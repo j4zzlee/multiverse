@@ -75,6 +75,9 @@ export default {
     profile: state => state.profile || {},
     notes: state => state.notes || {}
   }),
+  beforeCreate () {
+    $('body').addClass('skin-blue sidebar-mini')
+  },
   beforeMount () {
     this.$store.dispatch(
       'profile/init',

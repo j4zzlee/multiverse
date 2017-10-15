@@ -44,7 +44,7 @@
             </li>
             <li v-if="isAnnonymous" class="user-footer">
               <div class="pull-left">
-              <a href="#" class="btn btn-default btn-flat">Sign In</a>
+                <router-link :to="{name:'Login'}" v-if="isAnnonymous" class="btn btn-default btn-flat">Sign In</router-link>
               </div>
               <div class="pull-right">
                 <a href="#" class="btn btn-default btn-flat">Sign Up</a>

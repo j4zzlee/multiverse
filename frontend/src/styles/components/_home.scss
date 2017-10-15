@@ -10,13 +10,11 @@
  * -------------------------
  */
  html,
- body,
- #app {
+ body {
    height: 100%;
  }
  .layout-boxed html,
- .layout-boxed body,
- .layout-boxed #app {
+ .layout-boxed body {
    height: 100%;
  }
  body {
@@ -56,7 +54,7 @@
    position: relative;
  }
  .layout-boxed {
-   background: url('../assets/boxed-bg.jpg') repeat fixed;
+   background: url('/static/boxed-bg.jpg') repeat fixed;
  }
  /*
   * Content Wrapper - contains the main content

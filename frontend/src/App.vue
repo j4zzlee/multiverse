@@ -1,7 +1,5 @@
 <template>
-  <div id="app" class="skin-blue sidebar-mini">
-    <router-view/>
-  </div>
+  <router-view id="app"/>
 </template>
 
 <script>

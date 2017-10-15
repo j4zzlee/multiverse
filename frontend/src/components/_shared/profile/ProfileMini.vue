@@ -7,7 +7,7 @@
     <div class="pull-left info">
     <p>{{this.fullName}}</p>
     <!-- Status -->
-    <a href="#" v-if="isAnnonymous"><i class="fa fa-circle text-danger"></i> Login</a>
+    <router-link :to="{name:'Login'}" v-if="isAnnonymous"><i class="fa fa-circle text-danger"></i> Sign In</router-link>
     <a href="#" v-else><i class="fa fa-circle text-success"></i> Registered</a>
     </div>
 </div>
