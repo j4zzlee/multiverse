@@ -1,5 +1,5 @@
 <template>
-<div class="login-box">
+<div class="login-box" :class="{ 'form-loading': loading, 'form-error': hasError }">
     <div class="login-logo">
       <router-link :to="{name:'Home'}"><b>Super</b>Exams</router-link>
     </div>
@@ -7,20 +7,20 @@
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="../../index2.html" method="post">
+      <form v-on:submit.prevent="onSubmit">
         <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="Email">
+          <input v-model="email" type="email" class="form-control" placeholder="Email" autofocus required>
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password">
+          <input v-model="password" type="password" class="form-control" placeholder="Password" required>
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
           <div class="col-xs-8">
             <div class="checkbox icheck">
               <label>
-                <input type="checkbox"> Remember Me
+                <input v-model="remember_me" type="checkbox"> Remember Me
               </label>
             </div>
           </div>
@@ -48,6 +48,7 @@
 
     </div>
     <!-- /.login-box-body -->
+    <div class="loading" v-if="loading">Loading&#8230;</div>
   </div>
   <!-- /.login-box -->
 </template>
@@ -57,6 +58,30 @@ export default {
   name: 'Login',
   data () {
     return {
+      email: 'hoanggia.lh@gmail.com',
+      password: 'P@ssword123',
+      remember_me: false,
+      hasError: false,
+      loading: false
+    }
+  },
+  methods: {
+    onSubmit () {
+      this.loading = true
+      this.$store.dispatch(
+        'profile/login',
+        {
+          $vue: this,
+          email: this.email,
+          password: this.password,
+          remember_me: this.remember_me},
+        {root: true})
+        .catch(ex => {
+          console.log(ex)
+        })
+        .finally(() => { // finally
+          this.loading = false
+        })
     }
   }
 }

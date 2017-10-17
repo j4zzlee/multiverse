@@ -15,12 +15,17 @@ export default {
     }
   },
   actions: {
+    login ({commit, state}, {$vue, email, password, remember_me}) {
+      var $promise = $vue.$promise
+      return $promise.resolve($.post())
+    },
     /*
     * @params: store: {commit, dispatch, state, rootState}
     * @functionParams: {*}
     */
-    init ({commit, state}, {router, localStorage}) {
-      var profile = localStorage.get('profile')
+    init ({commit, state}, {$vue}) {
+      var $localStorage = $vue.$localStorage
+      var profile = $localStorage.get('profile')
       if (!profile) {
         profile = {
           ...state,
@@ -38,7 +43,7 @@ export default {
       if (!_.isEmpty(profile.token)) {
         // TODO: verify if token is not expired
       }
-      localStorage.set('profile', profile)
+      $localStorage.set('profile', profile)
       commit('profile/inited', {profile}, {root: true})
     }
   }

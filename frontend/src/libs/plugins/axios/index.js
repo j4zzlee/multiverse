@@ -1,9 +1,9 @@
-import Store from 'store'
+import axios from 'axios'
 
 const Plugin = {
   install (Vue, options) {
     // We call Vue.mixin() here to inject functionality into all components.
-    Vue.prototype.$localStorage = Store
+    Vue.prototype.$http = axios
   }
 }
 

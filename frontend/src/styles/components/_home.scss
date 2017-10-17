@@ -3400,6 +3400,7 @@
  .register-box {
    width: 360px;
    margin: 7% auto;
+   position: relative;
  }
  @media (max-width: 768px) {
    .login-box,
@@ -5671,4 +5672,3 @@
      white-space: normal !important;
    }
  }
- 

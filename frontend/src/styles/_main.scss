@@ -1,7 +1,9 @@
 $fa-font-path: "~font-awesome/fonts";
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 
+@import "components/_skin-blue";
+@import "components/_block-ui";
 @import "components/_home";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap";
 @import "~font-awesome/scss/font-awesome"; // 
-@import "components/_skin-blue";
+

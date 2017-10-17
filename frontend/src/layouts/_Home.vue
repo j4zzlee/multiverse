@@ -81,7 +81,9 @@ export default {
   beforeMount () {
     this.$store.dispatch(
       'profile/init',
-      {router: this.$router, localStorage: this.$localStorage},
+      {
+        $vue: this
+      },
       {root: true})
   },
   mounted () {

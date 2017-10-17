@@ -6,9 +6,15 @@
         "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
       }
     }],
-    "stage-2"
+    "stage-2",
+    "es2015"
   ],
-  "plugins": ["transform-runtime"],
+  "plugins": [
+    "transform-runtime",
+    "transform-object-rest-spread",
+    "transform-object-assign",
+    "transform-promise-to-bluebird"
+  ],
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
