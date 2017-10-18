@@ -9,9 +9,7 @@ using bc.cores.models;
 using bc.cores.repositories.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyModel.Resolution;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 
 namespace bc.cores.jwt
@@ -55,7 +53,7 @@ namespace bc.cores.jwt
                 && string.Equals(
                     context.Request.Form["remember_me"].ToString().ToLower(),
                     bool.TrueString.ToLower(), StringComparison.CurrentCultureIgnoreCase);
-            var user = await _userManager.FindByEmailAsync(username); //_userRepository.GetByEmail(username);
+            var user = await _userManager.FindByEmailAsync(username);
             if (user == null)
             {
                 context.Response.StatusCode = 404;

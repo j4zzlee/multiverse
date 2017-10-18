@@ -39,7 +39,7 @@
                 <a href="#" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a @click.stop.prevent="onLogout" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
             <li v-if="isAnnonymous" class="user-footer">
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import strUtils from '@/libs/common/str'
+import UserModel from '@/models/user'
 export default {
   name: 'MenuUserProfile',
   data () {
@@ -68,6 +68,17 @@ export default {
   methods: {
     onPhotoError () {
       this.photoError = true
+    },
+    async onLogout () {
+      await this.$store.dispatch(
+        'profile/logout',
+        {
+          $vue: this
+        },
+        {
+          root: true
+        })
+      this.$router.push({name: 'Home'})
     }
   },
   computed: {
@@ -75,20 +86,20 @@ export default {
       return this.profile.annonymous
     },
     profileData () {
-      return (this.profile && this.profile.data) || {}
+      return new UserModel(this.profile.data)
     },
     fullName () {
-      if (this.profile.annonymous || (strUtils.isNullOrWhiteSpace(this.profileData.FirstName) && strUtils.isNullOrWhiteSpace(this.profileData.LastName))) {
+      if (this.profile.annonymous) {
         return 'Welcome Guest'
       }
-      // return `${this.firstName} ${this.lastName}`
-      return [this.profileData.FirstName, this.profileData.LastName].filter(w => !strUtils.isNullOrWhiteSpace(w)).join(' ')
+
+      return 'Welcome ' + this.profileData.fullName()
     },
     photoUri () {
-      if (this.profile.annonymous || this.photoError || strUtils.isNullOrWhiteSpace(this.profileData.Photo)) {
+      if (this.profile.annonymous || this.photoError || !this.profileData.hasPhoto()) {
         return '/static/user-default.png'
       }
-      return this.profileData.Photo
+      return ['/api/photo', this.profileData.photoId()].join('/')
     }
   }
 }

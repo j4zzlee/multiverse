@@ -5,8 +5,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-    <ProfileMini :first-name="profile.data.firstName" :last-name="profile.data.lastName"
-        v-bind:is-annonymous="profile.annonymous"></ProfileMini>
+    <ProfileMini :profile="profile"></ProfileMini>
 
     <!-- search form (Optional) -->
     <form action="#" method="get" class="sidebar-form">

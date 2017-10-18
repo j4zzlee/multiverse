@@ -4,10 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import localStorage from '@/libs/plugins/local-storage'
-import axios from '@/libs/plugins/axios'
-import bluebird from '@/libs/plugins/bluebird'
-import logplease from '@/libs/plugins/logplease'
+import localStorage from '@/plugins/local-storage'
+import axios from '@/plugins/axios'
+import bluebird from '@/plugins/bluebird'
+import logplease from '@/plugins/logplease'
+import strUtils from '@/plugins/strUtils'
 import('../node_modules/jquery/dist/jquery.min.js')
 import('../node_modules/jquery/dist/jquery.slim.min.js')
 import('../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
@@ -19,6 +20,7 @@ Vue.use(localStorage)
 Vue.use(axios)
 Vue.use(bluebird)
 Vue.use(logplease)
+Vue.use(strUtils)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

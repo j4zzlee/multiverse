@@ -81,9 +81,18 @@ export default {
           {
             root: true
           })
-        this.logger_.info(res)
+        var userInfo = res.user_info
+        var tokenInfo = {
+          access_token: res.access_token,
+          expired_at: res.expired_at,
+          issued_at: res.issued_at
+        }
+        var profile = {userInfo, tokenInfo, annonymous: false}
+        this.$localStorage.set('profile', profile)
+        this.$store.commit('profile/inited', profile, {root: true})
+        this.$router.push({name: 'Home'})
       } catch (ex) {
-        console.log(ex, ex.responseText)
+        this.logger_.info(ex, ex.responseText)
       } finally {
         this.loading = false
       }

@@ -13,7 +13,8 @@
     "transform-runtime",
     "transform-object-rest-spread",
     "transform-object-assign",
-    "transform-promise-to-bluebird"
+    "transform-promise-to-bluebird",
+    "transform-class-properties"
   ],
   "env": {
     "test": {

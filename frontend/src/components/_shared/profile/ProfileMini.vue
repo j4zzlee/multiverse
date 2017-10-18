@@ -14,9 +14,11 @@
 </template>
 
 <script>
-import strUtils from '@/libs/common/str'
+import UserModel from '@/models/user'
 export default {
-  props: ['firstName', 'lastName', 'status', 'isAnnonymous', 'photo', 'email', 'userName'],
+  props: {
+    profile: {type: Object, required: false, default: { data: {} }}
+  },
   name: 'ProfileMini',
   data () {
     return {
@@ -29,17 +31,24 @@ export default {
     }
   },
   computed: {
+    isAnnonymous () {
+      return this.profile.annonymous
+    },
+    profileData () {
+      return new UserModel(this.profile.data)
+    },
     fullName () {
-      if (this.isAnnonymous || (strUtils.isNullOrWhiteSpace(this.firstName) && strUtils.isNullOrWhiteSpace(this.lastName))) {
-        return 'Guest'
+      if (this.profile.annonymous) {
+        return 'Welcome Guest'
       }
-      // return `${this.firstName} ${this.lastName}`
-      return [this.firstName, this.lastName].filter(w => !strUtils.isNullOrWhiteSpace(w)).join(' ')
+
+      return this.profileData.fullName()
     },
     photoUri () {
-      if (this.isAnnonymous || this.photoError || strUtils.isNullOrWhiteSpace(this.photo)) {
+      if (this.profile.annonymous || this.photoError || !this.profileData.hasPhoto()) {
         return '/static/user-default.png'
       }
+      return ['/api/photo', this.profileData.photoId()].join('/')
     }
   }
 }

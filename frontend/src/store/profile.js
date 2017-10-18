@@ -7,29 +7,37 @@ export default {
     initialized: false,
     annonymous: true,
     uniqueId: null,
-    data: {}, // store full user info
-    token: {} // only store the token & claims
+    userInfo: {}, // store full user info
+    tokenInfo: {} // only store the token & claims
   },
   mutations: {
-    inited (state, {profile}) {
-      Object.assign(state, profile)
+    inited (state, {userInfo, tokenInfo, annonymous}) {
+      state.annonymous = annonymous
+      state.initialized = true
+      state.userInfo = userInfo
+      state.tokenInfo = tokenInfo
     }
   },
   actions: {
-    login ({commit, state}, {$vue, email, password, remember_me}) {
-      var $promise = $vue.$promise
+    logout ({commit, state}, {$vue}) {
+      var $localStorage = $vue.$localStorage
+      $localStorage.set('profile', null)
+      commit('profile/inited', {userInfo: {}, tokenInfo: {}, annonymous: true}, {root: true})
+    },
+    async login ({commit, state}, {$vue, email, password, remember_me}) {
       var d = new FormData()
       d.append('username', email)
       d.append('password', password)
       d.append('remember_me', remember_me)
-      return $promise.resolve($.post({
+      var result = await $.post({
         url: APIConst.TOKEN_API,
         type: 'POST',
         cache: false,
         contentType: false,
         processData: false,
         data: d
-      }))
+      })
+      return result
     },
     /*
     * @params: store: {commit, dispatch, state, rootState}
@@ -42,21 +50,19 @@ export default {
         profile = {
           ...state,
           annonymous: true,
-          uniqueId: uuid.v4(),
-          initialized: true
+          uniqueId: uuid.v4()
         }
+        $localStorage.set('profile', profile)
       } else {
-        profile = {
-          ...profile,
-          initialized: true
+        if (!_.isEmpty(profile.tokenInfo)) {
+          // TODO: verify if token expired
+          profile.annonymous = false
+        } else {
+          profile.annonymous = true
         }
       }
-
-      if (!_.isEmpty(profile.token)) {
-        // TODO: verify if token is not expired
-      }
-      $localStorage.set('profile', profile)
-      commit('profile/inited', {profile}, {root: true})
+      commit('profile/inited', profile, {root: true})
+      return profile
     }
   }
 }
