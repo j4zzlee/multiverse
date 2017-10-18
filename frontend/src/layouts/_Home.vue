@@ -87,10 +87,10 @@ export default {
       {root: true})
   },
   mounted () {
-    $.fn.layout && $.fn.layout.call($('#app'))
+    $.fn.layout && $.fn.layout.call($('body'))
   },
   updated () {
-    $.fn.layout && $.fn.layout.call($('#app'))
+    $.fn.layout && $.fn.layout.call($('body'))
   },
   metaInfo: {
     title: 'Exams Anywhere!!!',

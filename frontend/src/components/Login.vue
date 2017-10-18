@@ -88,9 +88,20 @@ export default {
           issued_at: res.issued_at
         }
         var profile = {userInfo, tokenInfo, annonymous: false}
+
+        // store it
         this.$localStorage.set('profile', profile)
+
+        // update UI
         this.$store.commit('profile/inited', profile, {root: true})
-        this.$router.push({name: 'Home'})
+
+        // redirect to
+        var redirectUri = this.$route.query.redirect
+        if (!this.$strUtils.isNullOrWhiteSpace(redirectUri)) {
+          this.$router.push({path: redirectUri})
+        } else {
+          this.$router.push({name: 'Home'})
+        }
       } catch (ex) {
         this.logger_.info(ex, ex.responseText)
       } finally {

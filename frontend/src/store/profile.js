@@ -1,5 +1,5 @@
 import uuid from 'uuid'
-import _ from 'lodash'
+import TokenModel from '@/models/token'
 import * as APIConst from '@/consts/API'
 export default {
   namespaced: true,
@@ -54,11 +54,15 @@ export default {
         }
         $localStorage.set('profile', profile)
       } else {
-        if (!_.isEmpty(profile.tokenInfo)) {
+        var token = new TokenModel(profile.tokenInfo)
+        if (!token.isExpired()) {
           // TODO: verify if token expired
           profile.annonymous = false
         } else {
+          profile.userInfo = {}
+          profile.tokenInfo = {}
           profile.annonymous = true
+          profile.uniqueId = uuid.v4()
         }
       }
       commit('profile/inited', profile, {root: true})

@@ -4,7 +4,17 @@ export default class TokenModel {
   constructor (d) {
     this._data = d || {}
   }
-  accessToken () {}
-  expiredAt () {}
-  isExpired () {}
+  accessToken () {
+    return this._data.access_token
+  }
+  expiredAt () {
+    return this._data.expired_at || null
+  }
+  isExpired () {
+    if (this.expiredAt() == null) {
+      return true
+    }
+    var expiredAt = parseInt(this.expiredAt(), 10)
+    return (expiredAt - new Date().getTime()) > 10000 // 10s
+  }
 }

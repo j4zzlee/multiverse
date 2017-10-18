@@ -42,7 +42,7 @@ export default {
         return 'Welcome Guest'
       }
 
-      return this.profileData.fullName()
+      return 'Welcome ' + this.profileData.fullName()
     },
     photoUri () {
       if (this.profile.annonymous || this.photoError || !this.profileData.hasPhoto()) {

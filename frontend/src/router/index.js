@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import VueMeta from 'vue-meta'
+import Auth from '@/libs/auth'
 
 Vue.use(VueMeta)
 Vue.use(Router)
@@ -32,6 +33,7 @@ const router = new Router({
           path: 'quick-note',
           name: 'QuickNote',
           component: QuickNote
+          // meta: { requiresAuth: true }
         }
       ]
     },
@@ -67,5 +69,16 @@ const router = new Router({
 // router.afterEach((to, from, next) => {
 //   $.fn.layout.call($('#app'))
 // })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !Auth.loggedIn()) {
+    next({
+      path: '/auth/login',
+      query: {
+        redirect: to.fullPath
+      }})
+  } else {
+    next()
+  }
+})
 
 export default router
