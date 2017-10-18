@@ -70,7 +70,7 @@ export default {
     async onSubmit () {
       this.loading = true
       try {
-        await this.$store.dispatch(
+        var res = await this.$store.dispatch(
           'profile/login',
           {
             $vue: this,
@@ -81,6 +81,7 @@ export default {
           {
             root: true
           })
+        this.logger_.info(res)
       } catch (ex) {
         console.log(ex, ex.responseText)
       } finally {
