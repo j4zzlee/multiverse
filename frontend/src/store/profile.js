@@ -1,5 +1,6 @@
 import uuid from 'uuid'
 import _ from 'lodash'
+import * as APIConst from '@/consts/API'
 export default {
   namespaced: true,
   state: {
@@ -17,7 +18,18 @@ export default {
   actions: {
     login ({commit, state}, {$vue, email, password, remember_me}) {
       var $promise = $vue.$promise
-      return $promise.resolve($.post())
+      var d = new FormData()
+      d.append('username', email)
+      d.append('password', password)
+      d.append('remember_me', remember_me)
+      return $promise.resolve($.post({
+        url: APIConst.TOKEN_API,
+        type: 'POST',
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: d
+      }))
     },
     /*
     * @params: store: {commit, dispatch, state, rootState}

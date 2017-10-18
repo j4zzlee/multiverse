@@ -62,26 +62,30 @@ export default {
       password: 'P@ssword123',
       remember_me: false,
       hasError: false,
-      loading: false
+      loading: false,
+      logger_: this.$Logger.create('Login')
     }
   },
   methods: {
-    onSubmit () {
+    async onSubmit () {
       this.loading = true
-      this.$store.dispatch(
-        'profile/login',
-        {
-          $vue: this,
-          email: this.email,
-          password: this.password,
-          remember_me: this.remember_me},
-        {root: true})
-        .catch(ex => {
-          console.log(ex)
-        })
-        .finally(() => { // finally
-          this.loading = false
-        })
+      try {
+        await this.$store.dispatch(
+          'profile/login',
+          {
+            $vue: this,
+            email: this.email,
+            password: this.password,
+            remember_me: this.remember_me
+          },
+          {
+            root: true
+          })
+      } catch (ex) {
+        console.log(ex, ex.responseText)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }

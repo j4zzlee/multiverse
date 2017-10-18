@@ -29,6 +29,10 @@ module.exports = {
         target: 'http://exams.multiverse.edu:62924',
         changeOrigin: true
       },
+      '/token': {
+        target: 'http://exams.multiverse.edu:62924',
+        changeOrigin: true
+      },
       '/api/exams': {
         target: 'http://exams.multiverse.edu:63011',
         changeOrigin: true
@@ -43,6 +47,10 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/accounts': {
+        target: 'http://localhost:62924',
+        changeOrigin: true
+      },
+      '/token': {
         target: 'http://localhost:62924',
         changeOrigin: true
       },

@@ -7,6 +7,7 @@ import store from './store'
 import localStorage from '@/libs/plugins/local-storage'
 import axios from '@/libs/plugins/axios'
 import bluebird from '@/libs/plugins/bluebird'
+import logplease from '@/libs/plugins/logplease'
 import('../node_modules/jquery/dist/jquery.min.js')
 import('../node_modules/jquery/dist/jquery.slim.min.js')
 import('../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(localStorage)
 Vue.use(axios)
 Vue.use(bluebird)
+Vue.use(logplease)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -78,8 +78,8 @@ export default {
   beforeCreate () {
     $('body').addClass('skin-blue sidebar-mini')
   },
-  beforeMount () {
-    this.$store.dispatch(
+  async beforeMount () {
+    await this.$store.dispatch(
       'profile/init',
       {
         $vue: this

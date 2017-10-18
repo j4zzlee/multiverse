@@ -55,7 +55,7 @@ namespace bc.cores.jwt
                 && string.Equals(
                     context.Request.Form["remember_me"].ToString().ToLower(),
                     bool.TrueString.ToLower(), StringComparison.CurrentCultureIgnoreCase);
-            var user = _userRepository.GetByEmail(username);
+            var user = await _userManager.FindByEmailAsync(username); //_userRepository.GetByEmail(username);
             if (user == null)
             {
                 context.Response.StatusCode = 404;

@@ -5,16 +5,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'HomeLayout',
-  // components: {
-  //   MenuMessages,
-  //   MenuNotifications,
-  //   MenuTasks,
-  //   MenuUserProfile,
-  //   LeftSideBar,
-  //   ControlSideBar,
-  //   Footer_
-  // },
+  name: 'LoginLayout',
   data () {
     return {
     }
@@ -36,10 +27,6 @@ export default {
   },
   beforeMount () {
     this.addBodyClass()
-    // this.$store.dispatch(
-    //   'profile/init',
-    //   {router: this.$router, localStorage: this.$localStorage},
-    //   {root: true})
   },
   mounted () {
     $.fn.layout && $.fn.layout.call($('#app'))
