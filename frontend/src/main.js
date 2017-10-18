@@ -4,11 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import localStorage from '@/plugins/local-storage'
-import axios from '@/plugins/axios'
-import bluebird from '@/plugins/bluebird'
-import logplease from '@/plugins/logplease'
-import strUtils from '@/plugins/strUtils'
+import '@/plugins/local-storage'
+import '@/plugins/axios'
+import '@/plugins/logplease'
+import '@/plugins/strUtils'
+import '@/plugins/api-exception-handler'
 import('../node_modules/jquery/dist/jquery.min.js')
 import('../node_modules/jquery/dist/jquery.slim.min.js')
 import('../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')
@@ -16,11 +16,6 @@ import('./styles/js/site.js')
 import('./styles/_main.scss')
 
 Vue.config.productionTip = false
-Vue.use(localStorage)
-Vue.use(axios)
-Vue.use(bluebird)
-Vue.use(logplease)
-Vue.use(strUtils)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

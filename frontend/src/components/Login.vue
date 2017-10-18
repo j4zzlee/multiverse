@@ -6,7 +6,11 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
-
+      <div class="alert alert-danger alert-dismissible" v-if="hasError">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true" @click.stop.prevent="hideError">×</button>
+        <h4><i class="icon fa fa-ban"></i> Login failed!</h4>
+        {{errorMessage}}
+      </div>
       <form v-on:submit.prevent="onSubmit">
         <div class="form-group has-feedback">
           <input v-model="email" type="email" class="form-control" placeholder="Email" autofocus required>
@@ -63,12 +67,17 @@ export default {
       remember_me: false,
       hasError: false,
       loading: false,
+      errorMessage: '',
       logger_: this.$Logger.create('Login')
     }
   },
   methods: {
+    hideError () {
+      this.hasError = false
+    },
     async onSubmit () {
       this.loading = true
+      this.hasError = false
       try {
         var res = await this.$store.dispatch(
           'profile/login',
@@ -103,7 +112,10 @@ export default {
           this.$router.push({name: 'Home'})
         }
       } catch (ex) {
-        this.logger_.info(ex, ex.responseText)
+        this.hasError = true
+        var handler = new this.$apiExceptionHandler(ex)
+        this.errorMessage = handler.getExceptionMessage()
+        this.logger_.info(this.errorMessage)
       } finally {
         this.loading = false
       }

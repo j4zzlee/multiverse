@@ -1,4 +1,5 @@
 import Promise from 'bluebird'
+import Vue from 'vue'
 
 const Plugin = {
   install (Vue, options) {
@@ -12,4 +13,5 @@ const Plugin = {
   }
 }
 
+Vue.use(Plugin)
 export default Plugin

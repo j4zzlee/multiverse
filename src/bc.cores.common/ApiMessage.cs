@@ -7,6 +7,7 @@ namespace bc.cores.common
         UserNotFound,
         AccessTokenMissing,
         PasswordIncorrect,
-        AccessTokenRevoked
+        AccessTokenRevoked,
+        FormDataRequired
     }
 }

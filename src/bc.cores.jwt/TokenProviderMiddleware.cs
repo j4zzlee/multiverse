@@ -42,7 +42,13 @@ namespace bc.cores.jwt
             }
 
             context.Response.StatusCode = 400;
-            return context.Response.WriteAsync("Bad Request");
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(
+                new
+                {
+                    Message = "Token endpoint only accept FormData",
+                    Code = ApiMessage.FormDataRequired.ToString()
+                },
+                new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
         
         private async Task GenerateToken(HttpContext context)
