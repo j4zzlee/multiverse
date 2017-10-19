@@ -39,6 +39,18 @@ export default class ExceptionHandler {
       case 503:
         message = 'Service unavailable'
         break
+      case 417:
+        message = 'Validation Failed'
+        break
+      case 429:
+        message = 'Please calm down...'
+        break
+      case 403:
+        message = 'You are not allowed to perform this action'
+        break
+      case 401:
+        message = 'Please login first'
+        break
     }
     return message
   }

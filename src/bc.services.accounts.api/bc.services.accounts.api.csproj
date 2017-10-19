@@ -4,15 +4,22 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\bc.services.accounts.api.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="jwt\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="2.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
     <PackageReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +31,7 @@
     <ProjectReference Include="..\bc.cores.jwt\bc.cores.jwt.csproj" />
     <ProjectReference Include="..\bc.cores.modular\bc.cores.modular.csproj" />
     <ProjectReference Include="..\bc.cores.repositories\bc.cores.repositories.csproj" />
+    <ProjectReference Include="..\bc.cores.swagger\bc.cores.swagger.csproj" />
     <ProjectReference Include="..\bc.modulars.repositories\bc.modulars.repositories.csproj" />
   </ItemGroup>
 

@@ -7,14 +7,14 @@ namespace bc.cores.repositories.Repositories
 {
     public class UserRepository : BaseRepository<ApplicationUser>
     {
-        private const string TableName = "AspNetUsers";
         public UserRepository(IConfiguration conf) : base(conf)
         {
         }
 
         public ApplicationUser GetByEmail(string email)
         {
-            var sql = $"SELECT * FROM [{TableName}] WHERE Email = @Email";
+            var tableName = GetTableName();
+            var sql = $"SELECT * FROM [{tableName}] WHERE Email = @Email";
             return Connection
                 .Query<ApplicationUser>(
                     sql,

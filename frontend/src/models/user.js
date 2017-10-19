@@ -5,22 +5,22 @@ export default class UserModel {
     this._data = d || {}
   }
   firstName () {
-    return this._data.FirstName
+    return this._data.firstName
   }
   lastName () {
-    return this._data.LastName
+    return this._data.lastName
   }
   phoneNumber () {
-    return this._data.PhoneNumber
+    return this._data.phoneNumber
   }
   email () {
-    return this._data.Email
+    return this._data.email
   }
   userName () {
-    return this._data.UserName
+    return this._data.userName
   }
   photoId () {
-    return this._data.PhotoId
+    return this._data.photoId
   }
   hasPhoto () {
     return !strUtils.isNullOrWhiteSpace(this.photoId())

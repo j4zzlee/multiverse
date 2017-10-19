@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 
@@ -29,9 +31,20 @@ namespace bc.cores.repositories
             return typeof(TRepository).FullName == DataType.FullName;
         }
 
+        public string GetTableName()
+        {
+            var thisType = typeof(T);
+            var tableAttribute = thisType.GetTypeInfo().GetCustomAttribute<TableAttribute>();
+            if (tableAttribute != null)
+            {
+                return tableAttribute.Name;
+            }
+            return thisType.Name;
+        }
+
         public T Get(Guid id)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             return Connection
                 .Query<T>(
                     $"SELECT * FROM [{tableName}] WHERE Id = @Id",
@@ -42,7 +55,7 @@ namespace bc.cores.repositories
 
         public IEnumerable<T> GetMany(params Guid[] ids)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             return Connection
                 .Query<T>(
                     $"SELECT * FROM [{tableName}] WHERE Id IN @IdS",
@@ -52,7 +65,7 @@ namespace bc.cores.repositories
 
         public IEnumerable<T> All(int? limit = null, int? offset = null)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             limit = limit ?? 100;
             offset = offset ?? 0;
             return Connection
@@ -66,7 +79,7 @@ FETCH NEXT {limit} ROWS ONLY;",
 
         public Guid Create(DynamicParameters @params)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             var columns = string.Join(", ", @params.ParameterNames);
             var values = string.Join(", ", @params.ParameterNames.Select(p => $"@{p}"));
 
@@ -86,7 +99,7 @@ FETCH NEXT {limit} ROWS ONLY;",
 
         public void Delete(Guid id)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             Connection
                 .Execute(
                     $"DELETE FROM [{tableName}] WHERE Id = @Id",
@@ -96,7 +109,7 @@ FETCH NEXT {limit} ROWS ONLY;",
 
         public void DeleteMany(params Guid[] ids)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             Connection
                 .Execute(
                     $"DELETE FROM [{tableName}] WHERE Id IN @Ids",
@@ -106,7 +119,7 @@ FETCH NEXT {limit} ROWS ONLY;",
 
         public void Update(Guid id, DynamicParameters @params)
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName();
             var setters = string.Join(", ", @params.ParameterNames.Select(param => $"{param} = @{param}"));
             var sql = $"UPDATE {tableName} SET {setters} WHERE Id = @Id";
             // make sure that @Id is included

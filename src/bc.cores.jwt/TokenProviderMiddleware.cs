@@ -125,14 +125,14 @@ namespace bc.cores.jwt
                 expired_at = timespan.AddSeconds(totalExpirationSecond).ToUnixTimeSeconds(),
                 user_info = new
                 {
-                    user.Id,
-                    user.UserName,
-                    user.FirstName,
-                    user.LastName,
-                    user.Email,
-                    user.EmailConfirmed,
-                    user.PhoneNumber,
-                    user.PhoneNumberConfirmed
+                    id = user.Id,
+                    userName = user.UserName,
+                    firstName = user.FirstName,
+                    lastName = user.LastName,
+                    email = user.Email,
+                    emailConfirmed = user.EmailConfirmed,
+                    phoneNumber = user.PhoneNumber,
+                    phoneNumberConfirmed = user.PhoneNumberConfirmed
                 }
             };
            

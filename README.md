@@ -33,6 +33,11 @@
 > cd src/bc.services.\<api service\>; dotnet restore; dotnet watch run  
 > cd src/bc.multiverse.edu; dotnet restore; bower install; dotnet watch run  
 
-* Frontend:  
+## Documentations:
+* [IpRateLimit](https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/IpRateLimitMiddleware#setup)  
+* [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio)
+
+
+## Frontend:  
   * Install vue-cli to enable hot-reload
 > cd frontend; npm install; npm run dev
