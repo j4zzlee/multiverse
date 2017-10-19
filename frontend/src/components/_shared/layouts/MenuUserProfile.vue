@@ -44,10 +44,10 @@
             </li>
             <li v-if="isAnnonymous" class="user-footer">
               <div class="pull-left">
-                <router-link :to="{name:'Login'}" v-if="isAnnonymous" class="btn btn-default btn-flat">Sign In</router-link>
+                <router-link :to="{name:'Login', query: {'redirect': currentUri}}" class="btn btn-default btn-flat">Sign In</router-link>
               </div>
               <div class="pull-right">
-                <a href="#" class="btn btn-default btn-flat">Sign Up</a>
+                <router-link :to="{name:'Register', query: {'redirect': currentUri}}" class="btn btn-default btn-flat">Register</router-link>
               </div>
             </li>
         </ul>
@@ -82,6 +82,9 @@ export default {
     }
   },
   computed: {
+    currentUri () {
+      return this.$route.fullPath
+    },
     isAnnonymous () {
       return this.profile.annonymous
     },

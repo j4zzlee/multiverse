@@ -48,13 +48,13 @@
 
 <script>
 import { mapState } from 'vuex'
-const MenuMessages = () => import('@/layouts/Home/MenuMessages')
-const MenuNotifications = () => import('@/layouts/Home/MenuNotifications')
-const MenuTasks = () => import('@/layouts/Home/MenuTasks')
-const MenuUserProfile = () => import('@/layouts/Home/MenuUserProfile')
-const ControlSideBar = () => import('@/layouts/Home/ControlSideBar')
-const LeftSideBar = () => import('@/layouts/Home/LeftSideBar')
-const Footer_ = () => import('@/layouts/Home/_Footer')
+const MenuMessages = () => import('@/components/_shared/layouts/MenuMessages')
+const MenuNotifications = () => import('@/components/_shared/layouts/MenuNotifications')
+const MenuTasks = () => import('@/components/_shared/layouts/MenuTasks')
+const MenuUserProfile = () => import('@/components/_shared/layouts/MenuUserProfile')
+const ControlSideBar = () => import('@/components/_shared/layouts/ControlSideBar')
+const LeftSideBar = () => import('@/components/_shared/layouts/LeftSideBar')
+const Footer_ = () => import('@/components/_shared/layouts/_Footer')
 
 export default {
   name: 'HomeLayout',
@@ -71,10 +71,12 @@ export default {
     return {
     }
   },
-  computed: mapState({
-    profile: state => state.profile || {},
-    notes: state => state.notes || {}
-  }),
+  computed: {
+    ...mapState({
+      profile: state => state.profile || {},
+      notes: state => state.notes || {}
+    })
+  },
   beforeCreate () {
     $('body').addClass('skin-blue sidebar-mini')
   },

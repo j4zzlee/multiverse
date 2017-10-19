@@ -9,6 +9,7 @@ import '@/plugins/axios'
 import '@/plugins/logplease'
 import '@/plugins/strUtils'
 import '@/plugins/api-exception-handler'
+import '@/plugins/vee-validate'
 import('../node_modules/jquery/dist/jquery.min.js')
 import('../node_modules/jquery/dist/jquery.slim.min.js')
 import('../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js')

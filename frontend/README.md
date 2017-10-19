@@ -40,3 +40,17 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   ]
 }
 ```
+
+## How to
+### Validations
+* http://vee-validate.logaretm.com/
+
+
+## Troubleshooting
+* EADDRINUSED:  
+  > $\> taskkill /F /IM node.exe  
+* Upgrade npm:
+  > $\> npm install --global --production npm-windows-upgrade  
+  > $\> npm-windows-upgrade --npm-version latest
+* Windows build tools (only for desktop app using **electron**)
+  > $\> npm install --global --production windows-build-tools

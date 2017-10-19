@@ -5,7 +5,11 @@ export default class ExceptionHandler {
   constructor (res) {
     this._res = res || {}
     if (!strUtils.isNullOrWhiteSpace(res.responseText)) {
-      this._jMessage = JSON.parse(res.responseText) || {}
+      try {
+        this._jMessage = JSON.parse(res.responseText) || {}
+      } catch (ex) {
+        this._jMessage = {}
+      }
     } else {
       this._jMessage = {}
     }
