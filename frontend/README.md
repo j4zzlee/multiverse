@@ -41,9 +41,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 }
 ```
 
-## How to
-### Validations
-* http://vee-validate.logaretm.com/
+## Documentations
+* [vee-validate](http://vee-validate.logaretm.com/)
 
 
 ## Troubleshooting
