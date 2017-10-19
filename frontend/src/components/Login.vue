@@ -12,13 +12,19 @@
         {{errorMessage}}
       </div>
       <form v-on:submit.prevent="onSubmit">
-        <div class="form-group has-feedback">
-          <input v-model="email" type="email" class="form-control" placeholder="Email" autofocus required>
+        <div class="form-group has-feedback" :class="{ 'has-error': veeErrors.has('email') && submitted }">
+          <input v-model="email" type="email" class="form-control" name="email" placeholder="Email" autofocus
+            data-lpignore="true"
+            v-validate="{ required: true, email: true, min: 6, max: 255 }">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <small v-show="veeErrors.has('email') && submitted" class="help text-danger">{{ veeErrors.first('email') }}</small>
         </div>
-        <div class="form-group has-feedback">
-          <input v-model="password" type="password" class="form-control" placeholder="Password" required>
+        <div class="form-group has-feedback" :class="{ 'has-error': veeErrors.has('password') && submitted }">
+          <input v-model="password" type="password" class="form-control" name="password" placeholder="Password" 
+            data-lpignore="true"
+            v-validate="{ required: true, min: 6, max: 255 }">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <small v-show="veeErrors.has('password') && submitted" class="help text-danger">{{ veeErrors.first('password') }}</small>
         </div>
         <div class="row">
           <div class="col-xs-8">
@@ -68,6 +74,7 @@ export default {
       hasError: false,
       loading: false,
       errorMessage: '',
+      submitted: false,
       logger_: this.$Logger.create('Login')
     }
   },
@@ -76,8 +83,16 @@ export default {
       this.hasError = false
     },
     async onSubmit () {
+      this.submitted = true
+
+      await this.$validator.validateAll()
+      if (this.veeErrors.any()) {
+        return
+      }
+
       this.loading = true
       this.hasError = false
+
       try {
         var res = await this.$store.dispatch(
           'profile/login',

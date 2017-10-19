@@ -14,24 +14,28 @@
     <form  v-on:submit.prevent="onSubmit">
       <div class="form-group has-feedback" :class="{ 'has-error': veeErrors.has('fullName') && submitted }">
         <input type="text" v-model="fullName" name="fullName" class="form-control" placeholder="Full name"
+          data-lpignore="true"
           v-validate="{ min: 6, max: 255 }">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
         <small v-show="veeErrors.has('fullName') && submitted" class="help text-danger">{{ veeErrors.first('fullName') }}</small>
       </div>
       <div class="form-group has-feedback" :class="{ 'has-error': veeErrors.has('email') && submitted }">
         <input type="email" v-model="email" name="email" class="form-control" placeholder="Email"
+          data-lpignore="true"
           v-validate="{ required: true, email: true, min: 6, max: 255 }">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <small v-show="veeErrors.has('email') && submitted" class="help text-danger">{{ veeErrors.first('email') }}</small>
       </div>
       <div class="form-group has-feedback" :class="{ 'has-error': veeErrors.has('password') && submitted }">
         <input type="password" v-model="password" name="password" class="form-control" placeholder="Password"
+          data-lpignore="true"
           v-validate="{ required: true, min: 6, max: 255 }">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <small v-show="veeErrors.has('password') && submitted" class="help text-danger">{{ veeErrors.first('password') }}</small>
       </div>
       <div class="form-group has-feedback" :class="{ 'has-error': veeErrors.has('confirmPassword') && submitted }">
         <input type="password" v-model="confirmPassword" name="confirmPassword" class="form-control" placeholder="Retype password"
+          data-lpignore="true"
           v-validate="{ required: true, min: 6, max: 255, confirmed: 'password' }">
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
         <small v-show="veeErrors.has('confirmPassword') && submitted" class="help text-danger">{{ veeErrors.first('confirmPassword') }}</small>
