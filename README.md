@@ -37,7 +37,3 @@
 * [IpRateLimit](https://github.com/stefanprodan/AspNetCoreRateLimit/wiki/IpRateLimitMiddleware#setup)  
 * [Swagger](https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-help-pages-using-swagger?tabs=visual-studio)
 
-
-## Frontend:  
-  * Install vue-cli to enable hot-reload
-> cd frontend; npm install; npm run dev
