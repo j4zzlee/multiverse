@@ -1,10 +1,10 @@
 # multiverse
 
 ## Pre-requisite: 
-* nodejs  
-  * bower  
-  * vue-cli  
-  * webpack
+* nodejs  (https://nodejs.org/en/download/)
+  * bower  (npm install -g bower)
+  * vue-cli  (npm insstall -g vue-cli)
+  * webpack (npm install -g webpack)
 * dotnet core 2.0
 * SQL Server 2016 Express
 
