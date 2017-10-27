@@ -1,7 +1,7 @@
 # multiverse
 
 ## Pre-requisite: 
-* nodejs  
+* nodejs (https://nodejs.org/en/download/)
   * bower  
   * vue-cli  
   * webpack
