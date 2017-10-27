@@ -4,9 +4,10 @@
 * nodejs (https://nodejs.org/en/download/)
   * bower  
   * vue-cli  
-  * webpack
-* dotnet core 2.0
-* SQL Server 2016 Express
+  * webpack  
+* dotnet core 2.0 (https://www.microsoft.com/net/download/core)
+* SQL Server 2017 Express (https://www.microsoft.com/en-us/sql-server/sql-server-editions-express)
+(Microsoft® SQL Server® 2016 Service Pack 1 Express https://www.microsoft.com/en-us/download/details.aspx?id=54284)
 
 ## Development:
 * All api projects should have dotnet watch. See bc.multiverser.edu.csproj 
